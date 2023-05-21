@@ -17,18 +17,6 @@ import "fmt"
 // Output: false
 
 func isAnagram(s string, t string) bool {
-	// var freq [26]int
-
-	// for idx := 0; idx < len(s); idx++ {
-	// 	freq[s[idx]-'a']++
-	// 	freq[t[idx]-'a']--
-	// }
-
-	// for i := 0; i < len(freq); i++ {
-	// 	if freq[i] != 0 {
-	// 		return false
-	// 	}
-	// }
 
 	return true
 }
