@@ -23,10 +23,21 @@ import "fmt"
 //Input: strs = ["a"]
 //Output: [["a"]]
 
+// Разбить массив по две строки, передавать их и сделать так же, как с двумя строками, а после собрать это в слайс слайсов ?
+
 func groupAnagrams(strs []string) [][]string {
-	for _, s := range strs {
-		fmt.Println(s)
+	result := make(map[byte]int)
+
+	for idx := 0; idx < len(strs); idx++ {
+		//fmt.Println(strs[idx])
+		//result[strs[idx]]++
+		for i := 0; i < len(strs[idx]); i++ {
+			fmt.Println(strs[idx][i]) // bytes
+			result[strs[idx][i]]++
+		}
 	}
+
+	fmt.Println(result)
 
 	return [][]string{}
 }
