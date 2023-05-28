@@ -27,15 +27,17 @@ import "fmt"
 //Output: [0,1]
 
 func twoSum(nums []int, target int) []int {
-	m := make(map[int]int, len(nums))
+	result := make(map[int]int, len(nums))
 
-	for i, num := range nums {
-		if idx, ok := m[target-num]; ok {
+	for i, v := range nums {
+		if idx, ok := result[target-v]; ok {
 			return []int{idx, i}
 		}
-		m[num] = i
+
+		result[v] = i
 	}
-	return []int{0, 0}
+
+	return []int{}
 }
 
 func main() {

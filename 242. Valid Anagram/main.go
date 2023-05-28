@@ -17,15 +17,15 @@ import "fmt"
 // Output: false
 
 func isAnagram(s string, t string) bool {
-	mapResult := make(map[byte]int)
+	mapResult := make(map[byte]int, 0)
 
 	if len(s) != len(t) {
 		return false
 	}
 
-	for idx := 0; idx < len(s); idx++ {
-		mapResult[s[idx]]++
-		mapResult[t[idx]]--
+	for i := 0; i < len(s); i++ {
+		mapResult[s[i]]++
+		mapResult[t[i]]--
 	}
 
 	for _, v := range mapResult {

@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
 
 //Given an array of strings strs, group the anagrams together. You can return the answer in any order.
 //
@@ -23,23 +27,30 @@ import "fmt"
 //Input: strs = ["a"]
 //Output: [["a"]]
 
-// Разбить массив по две строки, передавать их и сделать так же, как с двумя строками, а после собрать это в слайс слайсов ?
-
 func groupAnagrams(strs []string) [][]string {
-	result := make(map[byte]int)
+	result := make(map[string][]string, len(strs))
 
-	for idx := 0; idx < len(strs); idx++ {
-		//fmt.Println(strs[idx])
-		//result[strs[idx]]++
-		for i := 0; i < len(strs[idx]); i++ {
-			fmt.Println(strs[idx][i]) // bytes
-			result[strs[idx][i]]++
+	for _, key := range strs {
+		resultKey := sortString(key)
+		if _, ok := result[resultKey]; !ok {
+			result[resultKey] = []string{}
 		}
+
+		result[resultKey] = append(result[resultKey], key)
 	}
 
-	fmt.Println(result)
+	res := make([][]string, 0)
+	for _, k := range result {
+		res = append(res, k)
+	}
 
-	return [][]string{}
+	return res
+}
+
+func sortString(s string) string {
+	strSlice := strings.Split(s, "")
+	sort.Strings(strSlice)
+	return strings.Join(strSlice, "")
 }
 
 func main() {

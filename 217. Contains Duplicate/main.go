@@ -19,13 +19,13 @@ import "fmt"
 // Output: true
 
 func containsDuplicate(nums []int) bool {
-	numsDuplicate := make(map[int]int)
+	numsDuplicate := make(map[int]struct{})
 
 	for _, v := range nums {
 		if _, ok := numsDuplicate[v]; ok {
 			return true
 		} else {
-			numsDuplicate[v] += 1
+			numsDuplicate[v] = struct{}{}
 		}
 	}
 
