@@ -15,35 +15,35 @@ import (
 //Input: nums = [1], k = 1
 //Output: [1]
 
-func topKFrequent(nums []int, k int) (res []int) {
-	frequentMap := map[int]int{}
-	resultMap := make([][]int, len(nums)+1)
+func topKFrequent(nums []int, k int) []int {
+	countMap := make(map[int]int, 0)
+	resultSlice := make([][]int, len(nums)+1)
+	var result []int
 
-	for _, num := range nums {
-		// if count, ok := frequentMap[num]; ok {
-		// 	frequentMap[num] = count + 1
-		// } else {
-		// 	frequentMap[num] = 1
-		// }
-		frequentMap[num]++
-	}
-
-	for count, value := range frequentMap {
-		resultMap[value] = append(resultMap[value], count)
-	}
-
-	for i := len(resultMap) - 1; i > 0; i-- {
-		res = append(res, resultMap[i]...)
-		if k == len(res) {
-			return res
+	for _, value := range nums {
+		if _, ok := countMap[value]; !ok {
+			countMap[value] = 1
+		} else {
+			countMap[value]++
 		}
 	}
 
-	return res
+	for count, value := range countMap {
+		resultSlice[value] = append(resultSlice[value], count)
+	}
+
+	for i := len(resultSlice) - 1; i > 0; i-- {
+		result = append(result, resultSlice[i]...)
+		if k == len(result) {
+			return result
+		}
+	}
+
+	return []int{}
 }
 
 func main() {
 	fmt.Println(topKFrequent([]int{1, 1, 1, 2, 2, 3}, 2)) // [1,2]
-	// fmt.Println(topKFrequent([]int{1}, 1))                // [1]
-	fmt.Println(topKFrequent([]int{-1, -1}, 1)) // [-1]
+	fmt.Println(topKFrequent([]int{1}, 1))                // [1]
+	fmt.Println(topKFrequent([]int{-1, -1}, 1))           // [-1]
 }
