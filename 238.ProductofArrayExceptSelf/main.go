@@ -21,7 +21,34 @@ import "fmt"
 //Output: [0,0,9,0,0]
 
 func productExceptSelf(nums []int) []int {
+	result1 := make([]int, len(nums))
+	// result2 := make([]int, len(nums))
+	// result3 := []int{}
 
+	prefix := 1
+	postfix := 1
+
+	for i := 0; i < len(result1); i++ {
+		result1[i] = prefix
+		prefix *= nums[i]
+	}
+
+	for i := len(nums) - 1; i >= 0; i-- {
+		result1[i] *= postfix
+		postfix *= nums[i]
+	}
+
+	// for i := len(nums) - 1; i >= 0; i-- {
+	// 	result2[i] = postfix
+	// 	postfix *= nums[i]
+	// }
+
+	// for i := 0; i < len(nums); i++ {
+	// 	res := result1[i] * result2[i]
+	// 	result3 = append(result3, res)
+	// }
+
+	return []int{}
 }
 
 func main() {
