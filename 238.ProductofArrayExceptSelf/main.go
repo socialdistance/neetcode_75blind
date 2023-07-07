@@ -48,7 +48,7 @@ func productExceptSelf(nums []int) []int {
 	// 	result3 = append(result3, res)
 	// }
 
-	return []int{}
+	return result1
 }
 
 func main() {

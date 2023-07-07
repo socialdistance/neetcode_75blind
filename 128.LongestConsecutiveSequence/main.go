@@ -2,14 +2,9 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 // 128. Longest Consecutive Sequence
-// Medium
-// 16.3K
-// 682
-// Companies
 
 // Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
 
@@ -27,11 +22,23 @@ import (
 // Output: 9
 
 func longestConsecutive(nums []int) int {
-	sort.Slice(nums, func(i, j int) bool {
-		return nums[i] < nums[j]
-	})
+	res := make(map[int]bool)
 
-	fmt.Println(nums)
+	for _, num := range nums {
+		res[num] = true
+	}
+
+	// fmt.Println(res)
+	sequence := 1
+
+	for i := 0; i < len(nums); i++ {
+
+		sequence++
+	}
+
+	fmt.Println(res)
+	fmt.Println(sequence)
+
 	return 0
 }
 
