@@ -26,16 +26,18 @@ import "fmt"
 // Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
 
 func lengthOfLongestSubstring(s string) int {
-	charSet := make(map[byte]bool)
+	charSet := make(map[string]bool)
 	left := 0
 	res := 0
 
 	for r, _ := range s {
-		for charSet[s[r]] {
-			delete(charSet, s[left])
+		for charSet[string(s[r])] {
+			delete(charSet, string(s[left]))
 			left++
 		}
-		charSet[s[r]] = true
+		
+		charSet[string(s[r])] = true
+
 		res = max(res, r-left+1)
 	}
 
