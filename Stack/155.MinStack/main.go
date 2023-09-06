@@ -1,9 +1,6 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
 // Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
 
@@ -37,18 +34,17 @@ import (
 // minStack.getMin(); // return -2
 
 type MinStack struct {
-	top     int
-	chars   []int
-	min     int
-	lastMin []int
+	top   int
+	chars []int
+	min   []int
+	// lastMin []int
 }
 
 func Constructor() MinStack {
 	return MinStack{
-		chars:   make([]int, 0),
-		top:     -1,
-		min:     math.MaxUint32,
-		lastMin: make([]int, 0),
+		chars: make([]int, 0),
+		min:   make([]int, 0),
+		top:   -1,
 	}
 }
 
@@ -56,21 +52,20 @@ func (this *MinStack) Push(val int) {
 	this.top++
 
 	this.chars = append(this.chars, val)
-
-	if val < this.min {
-		this.min = val
-		this.lastMin = append(this.lastMin, this.min)
+	if len(this.min) == 0 || val <= this.min[len(this.min)-1] {
+		this.min = append(this.min, val)
 	}
 
 }
 
 func (this *MinStack) Pop() {
-	if this.chars[len(this.chars)-1] == this.min {
-		this.min = this.lastMin[len(this.lastMin)-1]
-		this.lastMin = this.lastMin[:len(this.lastMin)-1]
+	popped := this.chars[len(this.chars)-1]
+	this.chars = this.chars[:len(this.chars)-1]
+
+	if popped == this.min[len(this.min)-1] {
+		this.min = this.min[:len(this.min)-1]
 	}
 
-	this.chars = this.chars[:len(this.chars)-1]
 	this.top--
 }
 
@@ -79,29 +74,33 @@ func (this *MinStack) Top() int {
 }
 
 func (this *MinStack) GetMin() int {
-	return this.min
+	if len(this.min) == 0 {
+		return 0
+	}
+
+	return this.min[len(this.min)-1]
 }
 
 func main() {
-	minStack := Constructor()
-	minStack.Push(-2)
-	minStack.Push(0)
-	minStack.Push(-3)
-	fmt.Println(minStack.GetMin()) // return -3
-	minStack.Pop()
-	fmt.Println(minStack.Top())    // return 0
-	fmt.Println(minStack.GetMin()) // return -2
-
 	// minStack := Constructor()
-	// minStack.Push(2)
+	// minStack.Push(-2)
 	// minStack.Push(0)
-	// minStack.Push(3)
-	// minStack.Push(0)
-	// fmt.Println(minStack.GetMin()) // return 0
+	// minStack.Push(-3)
+	// fmt.Println(minStack.GetMin()) // return -3
 	// minStack.Pop()
-	// fmt.Println(minStack.GetMin()) // return 0
-	// minStack.Pop()
-	// fmt.Println(minStack.GetMin()) // return 0
-	// minStack.Pop()
-	// fmt.Println(minStack.GetMin()) // return 2
+	// fmt.Println(minStack.Top())    // return 0
+	// fmt.Println(minStack.GetMin()) // return -2
+
+	minStack := Constructor()
+	minStack.Push(2)
+	minStack.Push(0)
+	minStack.Push(3)
+	minStack.Push(0)
+	fmt.Println(minStack.GetMin()) // return 0
+	minStack.Pop()
+	fmt.Println(minStack.GetMin()) // return 0
+	minStack.Pop()
+	fmt.Println(minStack.GetMin()) // return 0
+	minStack.Pop()
+	fmt.Println(minStack.GetMin()) // return 2
 }
