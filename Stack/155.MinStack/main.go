@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 // Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
 
@@ -34,18 +37,19 @@ import "fmt"
 // minStack.getMin(); // return -2
 
 type MinStack struct {
-	top   int
-	chars []int
-	min   int
+	top     int
+	chars   []int
+	min     int
+	lastMin []int
 }
 
 func Constructor() MinStack {
 	return MinStack{
-		chars: make([]int, 0),
-		top:   0,
-		min:   0,
+		chars:   make([]int, 0),
+		top:     -1,
+		min:     math.MaxUint32,
+		lastMin: make([]int, 0),
 	}
-
 }
 
 func (this *MinStack) Push(val int) {
@@ -55,20 +59,23 @@ func (this *MinStack) Push(val int) {
 
 	if val < this.min {
 		this.min = val
+		this.lastMin = append(this.lastMin, this.min)
 	}
+
 }
 
 func (this *MinStack) Pop() {
+	if this.chars[len(this.chars)-1] == this.min {
+		this.min = this.lastMin[len(this.lastMin)-1]
+		this.lastMin = this.lastMin[:len(this.lastMin)-1]
+	}
 
 	this.chars = this.chars[:len(this.chars)-1]
 	this.top--
-	if this.chars[len(this.chars)-1] < this.min {
-		this.min = this.chars[len(this.chars)-1]
-	}
 }
 
 func (this *MinStack) Top() int {
-	return this.chars[this.top-1]
+	return this.chars[this.top]
 }
 
 func (this *MinStack) GetMin() int {
@@ -76,7 +83,7 @@ func (this *MinStack) GetMin() int {
 }
 
 func main() {
-	minStack := new(MinStack)
+	minStack := Constructor()
 	minStack.Push(-2)
 	minStack.Push(0)
 	minStack.Push(-3)
@@ -84,4 +91,17 @@ func main() {
 	minStack.Pop()
 	fmt.Println(minStack.Top())    // return 0
 	fmt.Println(minStack.GetMin()) // return -2
+
+	// minStack := Constructor()
+	// minStack.Push(2)
+	// minStack.Push(0)
+	// minStack.Push(3)
+	// minStack.Push(0)
+	// fmt.Println(minStack.GetMin()) // return 0
+	// minStack.Pop()
+	// fmt.Println(minStack.GetMin()) // return 0
+	// minStack.Pop()
+	// fmt.Println(minStack.GetMin()) // return 0
+	// minStack.Pop()
+	// fmt.Println(minStack.GetMin()) // return 2
 }
