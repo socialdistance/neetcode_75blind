@@ -37,7 +37,6 @@ type MinStack struct {
 	top   int
 	chars []int
 	min   []int
-	// lastMin []int
 }
 
 func Constructor() MinStack {
@@ -52,10 +51,11 @@ func (this *MinStack) Push(val int) {
 	this.top++
 
 	this.chars = append(this.chars, val)
+
+	// Если элементов в слайсе min нет, то мы положим туда первый элемент
 	if len(this.min) == 0 || val <= this.min[len(this.min)-1] {
 		this.min = append(this.min, val)
 	}
-
 }
 
 func (this *MinStack) Pop() {
@@ -70,6 +70,7 @@ func (this *MinStack) Pop() {
 }
 
 func (this *MinStack) Top() int {
+
 	return this.chars[this.top]
 }
 
