@@ -27,6 +27,7 @@ import "fmt"
 
 func search(nums []int, target int) int {
 
+	return 0
 }
 
 func main() {
