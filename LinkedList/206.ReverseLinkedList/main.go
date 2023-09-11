@@ -12,16 +12,6 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func (l *ListNode) display(head *ListNode) {
-	fmt.Println("List: first -> last:", head)
-	current := head
-
-	for current != nil {
-		current.display(current.Next)
-		current = current.Next
-	}
-}
-
 var tempNode = &ListNode{
 	Val:  -1,
 	Next: nil,
@@ -33,6 +23,13 @@ func reverseList(head *ListNode) *ListNode {
 	if head == nil {
 		return head
 	}
+
+	tempNode = &ListNode{
+		Val:  -1,
+		Next: nil,
+	}
+
+	current = tempNode
 
 	if head.Next != nil {
 		reverseList(head.Next)
