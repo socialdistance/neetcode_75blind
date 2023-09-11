@@ -30,8 +30,6 @@ var tempNode = &ListNode{
 var current = tempNode
 
 func reverseList(head *ListNode) *ListNode {
-	// var tempNode, current *ListNode
-
 	if head == nil {
 		return head
 	}
