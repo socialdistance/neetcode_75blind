@@ -24,10 +24,7 @@ func reverseList(head *ListNode) *ListNode {
 		return head
 	}
 
-	tempNode = &ListNode{
-		Val:  -1,
-		Next: nil,
-	}
+	tempNode = new(ListNode)
 
 	current = tempNode
 
