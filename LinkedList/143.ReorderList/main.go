@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // You are given the head of a singly linked-list. The list can be represented as:
 
 // L0 → L1 → … → Ln - 1 → Ln
@@ -39,9 +37,18 @@ func reorderList(head *ListNode) {
 	}
 
 	reversed := reverse(slow.Next)
+	slow.Next = nil
 
-	fmt.Println(reversed)
+	curr := head
 
+	for curr != nil && reversed != nil {
+		next := curr.Next
+		revNext := reversed.Next
+		curr.Next = reversed
+		reversed.Next = next
+		curr = next
+		reversed = revNext
+	}
 }
 
 func reverse(node *ListNode) *ListNode {
