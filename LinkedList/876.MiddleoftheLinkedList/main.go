@@ -19,39 +19,23 @@ type ListNode struct {
 	Next *ListNode
 }
 
-var tempNode = &ListNode{
-	Val:  -1,
-	Next: nil,
-}
-
-var current = tempNode
+var tmpNode = new(ListNode)
 
 var count = 0
+var middle = 0
 
 func middleNode(head *ListNode) *ListNode {
-	if head == nil {
+	if head == nil && head.Next == nil {
 		return head
 	}
 
-	tempNode := new(ListNode)
+	slow, fast := head, head
 
-	current := tempNode
-
-	if head.Next != nil {
-		count++
-		middleNode(head.Next)
+	for fast != nil && fast.Next != nil {
+		slow, fast = slow.Next, fast.Next.Next
 	}
 
-	current.Next = head
-	current = current.Next
-
-	for count/2 > 0 {
-		count--
-	}
-
-	fmt.Println(tempNode.Next)
-
-	return tempNode.Next
+	return slow
 }
 
 func main() {
@@ -62,11 +46,12 @@ func main() {
 			Next: &ListNode{
 				Val: 3,
 				Next: &ListNode{
-					Val: 4,
-					Next: &ListNode{
-						Val:  5,
-						Next: nil,
-					},
+					Val:  4,
+					Next: nil,
+					// Next: &ListNode{
+					// 	Val:  5,
+					// 	Next: nil,
+					// },
 				},
 			},
 		},
