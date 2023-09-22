@@ -56,6 +56,57 @@ func (t *TreeNode) inOrder(root *TreeNode) {
 	}
 }
 
+func inorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+
+	var output []int
+
+	left := inorderTraversal(root.Left)
+	right := inorderTraversal(root.Right)
+
+	output = append(output, left...)
+	output = append(output, root.Val)
+	output = append(output, right...)
+
+	return output
+}
+
+func preorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+
+	var output []int
+
+	left := preorderTraversal(root.Left)
+	right := preorderTraversal(root.Right)
+
+	output = append(output, root.Val)
+	output = append(output, left...)
+	output = append(output, right...)
+
+	return output
+}
+
+func postorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+
+	var output []int
+
+	left := postorderTraversal(root.Left)
+	right := postorderTraversal(root.Right)
+
+	output = append(output, left...)
+	output = append(output, right...)
+	output = append(output, root.Val)
+
+	return output
+}
+
 func minimum(root *TreeNode) *TreeNode {
 	var last *TreeNode
 	for root != nil {
@@ -85,7 +136,20 @@ func main() {
 
 	// root.inOrder(root)
 
-	fmt.Println(maximum(root))
+	root1 := &TreeNode{
+		Val:  1,
+		Left: nil,
+		Right: &TreeNode{
+			Val: 2,
+			Left: &TreeNode{
+				Val: 3,
+			},
+		},
+	}
+
+	fmt.Println(postorderTraversal(root1))
+
+	// fmt.Println(maximum(root))
 
 	// found := root.find(25)
 	// fmt.Println(found)
